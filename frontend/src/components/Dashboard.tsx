@@ -55,7 +55,7 @@ export default function Dashboard() {
             { label: 'Pindai', icon: <path d="M4 3h16a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"></path> },
             { label: 'Arsip', icon: <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path> },
             { label: 'Analisis', icon: <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline> },
-            { label: 'Laporan', icon: <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline> }
+            { label: 'Laporan', icon: <><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></> }
           ].map((item, idx) => (
             <div key={idx} className="flex flex-col items-center gap-2 cursor-pointer group">
               <div className="w-[50px] h-[50px] bg-navy-card rounded-xl flex justify-center items-center border border-white/5 transition-colors group-hover:bg-teal-DEFAULT/10 group-hover:border-teal-DEFAULT">
