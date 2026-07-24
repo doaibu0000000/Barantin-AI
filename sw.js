@@ -1,4 +1,4 @@
-const CACHE_NAME = 'barantin-ai-v1';
+const CACHE_NAME = 'barantin-ai-v2';
 const urlsToCache = [
   './',
   './index.html',
