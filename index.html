@@ -61,43 +61,7 @@
       display: flex;
     }
 
-    /* SPLASH SCREEN */
-    #splash-screen {
-      justify-content: center;
-      align-items: center;
-      background: var(--navy-deep);
-      z-index: 100;
-    }
-    .splash-logo {
-      width: 100px;
-      height: 100px;
-      background: linear-gradient(135deg, var(--gold-soft), var(--gold));
-      border-radius: 24px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      box-shadow: 0 10px 30px rgba(212,175,55,0.3);
-      margin-bottom: 20px;
-      animation: pulse 2s infinite alternate;
-    }
-    .splash-logo svg {
-      width: 50px;
-      height: 50px;
-      stroke: var(--navy-deep);
-      stroke-width: 2;
-      fill: none;
-    }
-    .splash-title {
-      font-size: 28px;
-      font-weight: 700;
-      background: linear-gradient(90deg, var(--gold-soft), var(--gold));
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-    @keyframes pulse {
-      0% { transform: scale(0.95); box-shadow: 0 10px 20px rgba(212,175,55,0.2); }
-      100% { transform: scale(1.05); box-shadow: 0 15px 40px rgba(212,175,55,0.5); }
-    }
+
 
     /* LOGIN SCREEN */
     #login-screen {
@@ -453,16 +417,8 @@
 
   <div class="app-container">
     
-    <!-- 1. SPLASH SCREEN -->
-    <div id="splash-screen" class="screen active">
-      <div class="splash-logo">
-        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-      </div>
-      <h1 class="splash-title">Barantin AI</h1>
-    </div>
-
     <!-- 2. LOGIN SCREEN -->
-    <div id="login-screen" class="screen">
+    <div id="login-screen" class="screen active">
       <div class="login-header">
         <h1>Masuk Akun</h1>
         <p>Silakan login untuk mengakses layanan Barantin</p>
@@ -601,15 +557,8 @@
 
   <script>
     // --- APP NAVIGATION LOGIC ---
-    const splashScreen = document.getElementById('splash-screen');
     const loginScreen = document.getElementById('login-screen');
     const dashboardScreen = document.getElementById('dashboard-screen');
-    
-    // Simulate Splash Screen delay
-    setTimeout(() => {
-      splashScreen.classList.remove('active');
-      loginScreen.classList.add('active');
-    }, 2000);
 
     // --- LOGIN LOGIC ---
     const togglePw = document.getElementById('toggle-pw');
