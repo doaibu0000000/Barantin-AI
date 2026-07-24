@@ -1,14 +1,21 @@
-import { useState, useEffect } from 'react';
-
 export default function Dashboard() {
-  const [summary, setSummary] = useState<any>(null);
-
-  useEffect(() => {
-    fetch('http://localhost:8000/api/dashboard/summary')
-      .then(res => res.json())
-      .then(data => setSummary(data))
-      .catch(err => console.error("Failed to load dashboard data", err));
-  }, []);
+  const summary = {
+    dokumen_diproses: 142,
+    recent_activities: [
+      {
+        title: "Verifikasi Dokumen #K-1029",
+        time: "Hari ini, 09:41 WIB",
+        status: "success",
+        status_text: "Selesai"
+      },
+      {
+        title: "Pengajuan Karantina #K-1030",
+        time: "Kemarin, 14:20 WIB",
+        status: "pending",
+        status_text: "Proses"
+      }
+    ]
+  };
 
   return (
     <div className="flex flex-col flex-1 w-full h-full absolute top-0 left-0 right-0 bottom-0 overflow-y-auto pb-[100px]">
@@ -30,7 +37,7 @@ export default function Dashboard() {
         <div className="bg-gradient-to-br from-navy-card to-[#0a1730] rounded-2xl p-6 border border-gold-DEFAULT/25 mb-6 flex justify-between items-center">
           <div>
             <h3 className="text-[14px] text-text-dim font-medium mb-2">Dokumen Diproses</h3>
-            <div className="text-[28px] font-bold text-gold-DEFAULT">{summary ? summary.dokumen_diproses : '...'}</div>
+            <div className="text-[28px] font-bold text-gold-DEFAULT">{summary.dokumen_diproses}</div>
           </div>
           <div>
             <svg className="w-12 h-12 stroke-gold-DEFAULT/20 fill-gold-DEFAULT/10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -64,7 +71,7 @@ export default function Dashboard() {
         <div>
           <h3 className="text-[16px] mb-4 text-text-bright font-semibold">Aktivitas Terkini</h3>
           <div className="flex flex-col gap-3">
-            {summary?.recent_activities?.map((activity: any, idx: number) => (
+            {summary.recent_activities.map((activity: any, idx: number) => (
               <div key={idx} className="bg-navy-card p-4 rounded-xl flex justify-between items-center border border-white/5">
                 <div>
                   <h4 className="text-[14px] mb-1 text-text-bright font-medium">{activity.title}</h4>
@@ -75,10 +82,6 @@ export default function Dashboard() {
                 </span>
               </div>
             ))}
-            
-            {!summary && (
-              <div className="text-center text-text-dim py-4 text-[13px]">Memuat data...</div>
-            )}
           </div>
         </div>
       </div>

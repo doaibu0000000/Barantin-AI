@@ -6,52 +6,41 @@ interface LoginProps {
 
 export default function Login({ onLoginSuccess }: LoginProps) {
   const [showPassword, setShowPassword] = useState(false);
-  const [captchaData, setCaptchaData] = useState({ id: '', value: '' });
+  const [captchaData, setCaptchaData] = useState({ value: '' });
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [captchaInput, setCaptchaInput] = useState('');
   const [error, setError] = useState('');
 
-  const fetchCaptcha = async () => {
-    try {
-      const res = await fetch('http://localhost:8000/api/auth/captcha');
-      const data = await res.json();
-      setCaptchaData({ id: data.captcha_id, value: data.captcha_value });
-      setCaptchaInput('');
-    } catch (err) {
-      console.error('Failed to fetch captcha', err);
+  const generateCaptcha = () => {
+    const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let result = "";
+    for (let i = 0; i < 5; i++) {
+      result += chars.charAt(Math.floor(Math.random() * chars.length));
     }
+    setCaptchaData({ value: result });
+    setCaptchaInput('');
   };
 
   useEffect(() => {
-    fetchCaptcha();
+    generateCaptcha();
   }, []);
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
-    try {
-      const res = await fetch('http://localhost:8000/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          username,
-          password,
-          captcha_id: captchaData.id,
-          captcha_value: captchaInput
-        })
-      });
+    if (captchaInput.toUpperCase() !== captchaData.value) {
+      setError('Captcha salah, silakan coba lagi');
+      generateCaptcha();
+      return;
+    }
 
-      if (res.ok) {
-        onLoginSuccess();
-      } else {
-        const errData = await res.json();
-        setError(errData.detail || 'Login gagal');
-        fetchCaptcha();
-      }
-    } catch (err) {
-      setError('Tidak dapat terhubung ke server');
+    if (username === 'admin' && password === 'admin') {
+      onLoginSuccess();
+    } else {
+      setError('Username atau password salah');
+      generateCaptcha();
     }
   };
 
@@ -119,7 +108,7 @@ export default function Login({ onLoginSuccess }: LoginProps) {
             </div>
             <button 
               type="button" 
-              onClick={fetchCaptcha}
+              onClick={generateCaptcha}
               className="bg-white/10 border-none rounded-lg p-2.5 cursor-pointer text-text-bright flex items-center justify-center transition-colors hover:bg-white/20 h-[50px] w-[50px]"
             >
               <svg className="w-6 h-6 stroke-current fill-none stroke-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
