@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#050a14] min-h-screen text-text-bright flex justify-center items-center;
+  }
+}
+
+@layer utilities {
+  .app-container {
+    background: radial-gradient(ellipse at top, #16305e 0%, theme('colors.navy.deep') 70%);
+  }
+}
